@@ -7,6 +7,7 @@ answer questions from DIP staff and the public.
 - `knowledge/` — the knowledge base; start at `knowledge/INDEX.md`
 - `raw/` — original source documents
 - `pipeline/` — scripts that turn `raw/` into `knowledge/` (see `pipeline/README.md`)
+- `evals/` — test questions with known answers (see `evals/README.md`)
 - `AGENTS.md` — rules for agents (`CLAUDE.md` imports it)
 - `.agents/skills/dip-answer/` — answering workflow (linked from `.claude/skills/`)
 

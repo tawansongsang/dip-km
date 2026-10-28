@@ -34,6 +34,8 @@ Section files are named by number: `s006.md` = มาตรา ๖, `s079-1.md` 
    from memory, even if you are confident.
 2. **Cite every legal statement** with the law and มาตรา, e.g.
    `(พ.ร.บ.เครื่องหมายการค้า พ.ศ. 2534 มาตรา 53)`. For staff, also give the file path.
+   Public answers must not mention files, paths, `raw/`, `pipeline/` or how the
+   knowledge base is built — unless the user is working on this repository.
 3. **Order of authority:** พระราชบัญญัติ > กฎกระทรวง > ประกาศ > คู่มือ > FAQ.
    If sources conflict, follow the higher one and say that the lower one looks
    out of date. Among sources of equal rank, the later `effective_date` wins.

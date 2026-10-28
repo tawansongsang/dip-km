@@ -24,3 +24,11 @@ python pipeline/build_act.py raw/trademark/act_tm_th_2534.pdf \
 [tasks.build]
 description = "Rebuild all generated knowledge files"
 depends = ["build:*"]
+
+[tasks.eval]
+description = "Run eval questions through an agent: mise run eval -- --agent claude|codex [--only id,id]"
+run = "python evals/run.py run"
+
+[tasks."eval:grade"]
+description = "Regrade a saved eval run: mise run eval:grade <evals/results/run-dir>"
+run = "python evals/run.py grade"
