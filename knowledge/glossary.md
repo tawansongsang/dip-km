@@ -1,0 +1,83 @@
+---
+id: glossary
+type: glossary
+audience: public
+last_reviewed: 2026-10-28
+---
+
+# อภิธานศัพท์ TH ↔ EN (Glossary)
+
+Use these translations every time so that answers stay consistent. English
+renderings are unofficial; the Thai text of the law is authoritative.
+
+## เอกสารและโครงสร้างกฎหมาย
+
+| ไทย | English |
+|---|---|
+| พระราชบัญญัติ (พ.ร.บ.) | Act |
+| กฎกระทรวง | Ministerial Regulation |
+| ประกาศ | Notification |
+| ราชกิจจานุเบกษา | Royal Gazette |
+| ฉบับรวมแก้ไข | consolidated version |
+| มาตรา | section |
+| วรรค | paragraph (วรรคหนึ่ง = paragraph one) |
+| อนุมาตรา (๑), (๒) | sub-section (1), (2) |
+| หมวด / ส่วน | chapter / part |
+| บทเฉพาะกาล | transitional provisions |
+| บทนิยาม | definitions |
+| โดยอนุโลม | mutatis mutandis |
+| ยกเลิก | repealed |
+| แก้ไขเพิ่มเติม | amended |
+
+## หน่วยงานและบุคคล
+
+| ไทย | English |
+|---|---|
+| กรมทรัพย์สินทางปัญญา | Department of Intellectual Property (DIP) |
+| อธิบดี | Director-General |
+| นายทะเบียน | Registrar |
+| คณะกรรมการเครื่องหมายการค้า | Trademark Board |
+| พนักงานเจ้าหน้าที่ | competent official |
+| ผู้ขอจดทะเบียน | applicant |
+| ตัวแทน | agent |
+| เจ้าของเครื่องหมายการค้า | trademark owner |
+| ผู้ได้รับอนุญาต | licensee |
+| ผู้มีส่วนได้เสีย | interested person |
+| ผู้คัดค้าน | opponent |
+| สำนักระหว่างประเทศ | International Bureau (of WIPO) |
+
+## เครื่องหมายการค้า
+
+| ไทย | English |
+|---|---|
+| เครื่องหมาย | mark |
+| เครื่องหมายการค้า | trademark |
+| เครื่องหมายบริการ | service mark |
+| เครื่องหมายรับรอง | certification mark |
+| เครื่องหมายร่วม | collective mark |
+| เครื่องหมายการค้าที่มีชื่อเสียงแพร่หลายทั่วไป | well-known trademark |
+| ลักษณะบ่งเฉพาะ | distinctiveness / distinctive character |
+| ลักษณะต้องห้าม | prohibited characteristics |
+| เหมือนหรือคล้าย | identical or similar |
+| สินค้า / บริการ | goods / services |
+| จำพวก | class |
+| รายการสินค้า | list of goods |
+| คำขอจดทะเบียน | application for registration |
+| ยื่นคำขอ | file an application |
+| ประกาศโฆษณา | publication (of an application) |
+| คัดค้าน / คำคัดค้าน | oppose / notice of opposition |
+| คำโต้แย้ง | counter-statement |
+| คำสั่ง / คำวินิจฉัย | order / decision |
+| อุทธรณ์ | appeal |
+| หนังสือสำคัญแสดงการจดทะเบียน | certificate of registration |
+| ต่ออายุ | renew / renewal |
+| เพิกถอน | cancel / cancellation |
+| โอน / รับมรดก | assign (transfer) / succession |
+| สัญญาอนุญาตให้ใช้เครื่องหมายการค้า | trademark license agreement |
+| ข้อบังคับว่าด้วยการใช้เครื่องหมายรับรอง | regulations governing the use of a certification mark |
+| พิธีสารมาดริด | Madrid Protocol |
+| คำขอจดทะเบียนระหว่างประเทศ | international application |
+| การจดทะเบียนระหว่างประเทศ | international registration |
+| ค่าธรรมเนียม | fee |
+| ปลอม / เลียน เครื่องหมายการค้า | counterfeit / imitate a trademark |
+| ละเมิด | infringe / infringement |

@@ -1,0 +1,272 @@
+# Evaluation questions for agents answering from knowledge/.
+#
+# Fields:
+#   id                 unique slug
+#   audience           public | staff  (how the question is phrased)
+#   lang               th | en
+#   question           exactly what the user types
+#   expect_sections    มาตรา the answer must cite (Arabic digits, "79/4", "28 ทวิ")
+#   must_include       list of facts; each fact is a list of accepted spellings,
+#                      any one is enough. Thai digits and thousands separators
+#                      are normalized before matching.
+#   must_not_include   phrases that indicate a wrong answer
+#   expect_not_found   true when the knowledge base does not have the answer
+#                      and the agent must say so instead of answering from memory
+#   source             file(s) holding the ground truth, for reviewers
+#
+# Ground truth: Trademark Act B.E. 2534 as amended to No. 3 (2559).
+
+# --- what can be registered ------------------------------------------------
+
+- id: tm-def-sound
+  audience: public
+  lang: th
+  question: เสียงสามารถจดทะเบียนเป็นเครื่องหมายการค้าได้ไหม
+  expect_sections: ["4"]
+  must_include:
+    - ["ได้"]
+  source: act-2534/definitions.md
+
+- id: tm-registrable-conditions
+  audience: public
+  lang: th
+  question: เครื่องหมายการค้าแบบไหนถึงจะจดทะเบียนได้
+  expect_sections: ["6"]
+  must_include:
+    - ["บ่งเฉพาะ"]
+    - ["ต้องห้าม"]
+    - ["เหมือนหรือคล้าย"]
+  source: act-2534/sections/s006.md
+
+- id: tm-prohibited-flag
+  audience: public
+  lang: th
+  question: เอาธงชาติไทยมาทำโลโก้แล้วจดเป็นเครื่องหมายการค้าได้ไหม
+  expect_sections: ["8"]
+  must_include:
+    - ["ไม่ได้", "ห้าม"]
+    - ["ธงชาติ"]
+  source: act-2534/sections/s008.md
+
+# --- term and renewal --------------------------------------------------------
+
+- id: tm-term
+  audience: public
+  lang: th
+  question: จดเครื่องหมายการค้าแล้วคุ้มครองกี่ปี นับจากวันไหน
+  expect_sections: ["53", "42"]
+  must_include:
+    - ["10 ปี", "สิบปี"]
+    - ["ยื่นคำขอ"]
+  source: act-2534/sections/s053.md, s042.md
+
+- id: tm-renewal-window
+  audience: public
+  lang: th
+  question: ต้องยื่นต่ออายุเครื่องหมายการค้าเมื่อไหร่
+  expect_sections: ["54"]
+  must_include:
+    - ["3 เดือน", "สามเดือน"]
+  source: act-2534/sections/s054.md
+
+- id: tm-renewal-late
+  audience: public
+  lang: th
+  question: ลืมต่ออายุเครื่องหมายการค้า หมดอายุไปแล้ว 2 เดือน ยังต่อได้ไหม
+  expect_sections: ["54"]
+  must_include:
+    - ["6 เดือน", "หกเดือน"]
+    - ["20%", "ร้อยละ 20", "ร้อยละยี่สิบ", "20 เปอร์เซ็นต์"]
+  source: act-2534/sections/s054.md
+
+- id: tm-renewal-missed
+  audience: staff
+  lang: th
+  question: ถ้าเจ้าของไม่ยื่นคำขอต่ออายุภายในหกเดือนนับแต่วันสิ้นอายุ ผลทางกฎหมายคืออะไร
+  expect_sections: ["56"]
+  must_include:
+    - ["เพิกถอน"]
+  source: act-2534/sections/s056.md
+
+# --- examination, opposition, appeal ---------------------------------------
+
+- id: tm-opposition-deadline
+  audience: public
+  lang: th
+  question: เห็นประกาศโฆษณาคำขอจดเครื่องหมายที่คล้ายของเรา จะคัดค้านได้ภายในกี่วัน
+  expect_sections: ["35"]
+  must_include:
+    - ["60 วัน", "หกสิบวัน"]
+  source: act-2534/sections/s035.md
+
+- id: tm-counter-statement
+  audience: staff
+  lang: th
+  question: ผู้ขอจดทะเบียนต้องยื่นคำโต้แย้งคำคัดค้านภายในกี่วัน ถ้าไม่ยื่นจะเป็นอย่างไร
+  expect_sections: ["36"]
+  must_include:
+    - ["60 วัน", "หกสิบวัน"]
+    - ["ละทิ้ง"]
+  source: act-2534/sections/s036.md
+
+- id: tm-appeal-registrar
+  audience: public
+  lang: th
+  question: นายทะเบียนไม่รับจดเครื่องหมายการค้าของเรา อุทธรณ์ได้ไหม ต้องทำภายในกี่วัน
+  expect_sections: ["18"]
+  must_include:
+    - ["60 วัน", "หกสิบวัน"]
+    - ["คณะกรรมการ"]
+  source: act-2534/sections/s018.md
+
+- id: tm-priority
+  audience: staff
+  lang: th
+  question: ลูกค้ายื่นจดเครื่องหมายการค้าที่ญี่ปุ่นไว้แล้ว ถ้ามายื่นที่ไทยจะขอให้ถือวันยื่นที่ญี่ปุ่นได้ไหม มีเงื่อนไขอะไร
+  expect_sections: ["28"]
+  must_include:
+    - ["6 เดือน", "หกเดือน"]
+  source: act-2534/sections/s028.md
+
+# --- rights, licensing, cancellation ----------------------------------------
+
+- id: tm-unregistered-suit
+  audience: public
+  lang: th
+  question: แบรนด์ของเรายังไม่ได้จดทะเบียน แล้วมีคนลอกไปใช้ ฟ้องได้ไหม
+  expect_sections: ["46"]
+  must_include:
+    - ["ไม่ได้"]
+    - ["ลวงขาย", "passing off"]
+  source: act-2534/sections/s046.md
+
+- id: tm-license
+  audience: public
+  lang: th
+  question: จะให้คนอื่นใช้แบรนด์ของเราแบบแฟรนไชส์ ต้องทำสัญญาอย่างไร
+  expect_sections: ["68"]
+  must_include:
+    - ["หนังสือ", "ลายลักษณ์อักษร"]
+    - ["จดทะเบียน"]
+  source: act-2534/sections/s068.md
+
+- id: tm-court-cancel
+  audience: staff
+  lang: th
+  question: ถ้าเรามีสิทธิในเครื่องหมายดีกว่าคนที่จดทะเบียนไปแล้ว จะร้องขอต่อศาลให้เพิกถอนได้ภายในกี่ปี
+  expect_sections: ["67"]
+  must_include:
+    - ["5 ปี", "ห้าปี"]
+  source: act-2534/sections/s067.md
+
+- id: tm-board
+  audience: staff
+  lang: th
+  question: คณะกรรมการเครื่องหมายการค้าประกอบด้วยใครบ้าง
+  expect_sections: ["95"]
+  must_include:
+    - ["อธิบดี"]
+    - ["อัยการสูงสุด"]
+    - ["8 คน", "แปดคน", "8–12", "8-12", "8 ถึง 12", "8 แต่ไม่เกิน 12"]
+  source: act-2534/sections/s095.md
+
+- id: tm-repealed-14
+  audience: staff
+  lang: th
+  question: มาตรา 14 พ.ร.บ.เครื่องหมายการค้ายังใช้บังคับอยู่ไหม
+  expect_sections: ["14"]
+  must_include:
+    - ["ยกเลิก"]
+  source: act-2534/sections/s014.md
+
+# --- penalties ---------------------------------------------------------------
+
+- id: tm-counterfeit-penalty
+  audience: public
+  lang: th
+  question: ปลอมเครื่องหมายการค้าของคนอื่นมีโทษอะไร
+  expect_sections: ["108"]
+  must_include:
+    - ["4 ปี", "สี่ปี"]
+    - ["400000", "สี่แสน"]
+  source: act-2534/sections/s108.md
+
+- id: tm-imitation-vs-counterfeit
+  audience: staff
+  lang: th
+  question: โทษเลียนเครื่องหมายการค้าต่างจากโทษปลอมอย่างไร และคนที่ขายสินค้าเลียนแบบมีความผิดด้วยไหม
+  expect_sections: ["108", "109", "110"]
+  must_include:
+    - ["2 ปี", "สองปี"]
+    - ["200000", "สองแสน"]
+  source: act-2534/sections/s108.md, s109.md, s110.md
+
+# --- Madrid Protocol, fees ---------------------------------------------------
+
+- id: tm-madrid-eligibility
+  audience: staff
+  lang: th
+  question: ใครมีสิทธิยื่นคำขอจดทะเบียนระหว่างประเทศตามพิธีสารมาดริดผ่านประเทศไทย
+  expect_sections: ["79/4"]
+  must_include:
+    - ["สัญชาติไทย"]
+    - ["ภูมิลำเนา"]
+  source: act-2534/sections/s079-4.md
+
+- id: tm-fee-application
+  audience: public
+  lang: th
+  question: ยื่นจดเครื่องหมายการค้าต้องเสียค่าธรรมเนียมเท่าไหร่
+  expect_sections: []
+  must_include:
+    - ["กฎกระทรวง"]
+    - ["สูงสุด", "ไม่เกิน"]
+  source: act-2534/fees.md (maximum rates only; actual fee is in a กฎกระทรวง not yet in the KB)
+
+# --- English -----------------------------------------------------------------
+
+- id: en-opposition
+  audience: public
+  lang: en
+  question: How long do I have to oppose a published trademark application in Thailand?
+  expect_sections: ["35"]
+  must_include:
+    - ["60 days", "sixty days", "60-day"]
+  source: act-2534/sections/s035.md
+
+- id: en-service-mark
+  audience: public
+  lang: en
+  question: Do the Thai trademark rules also apply to service marks?
+  expect_sections: ["80"]
+  must_include:
+    - ["service mark"]
+  source: act-2534/sections/s080.md
+
+- id: en-renewal-term
+  audience: public
+  lang: en
+  question: How long is a Thai trademark registration valid, and when should I file for renewal?
+  expect_sections: ["53", "54"]
+  must_include:
+    - ["10 years", "ten years"]
+    - ["3 months", "three months"]
+  source: act-2534/sections/s053.md, s054.md
+
+# --- not in the knowledge base: must say so, not answer from memory --------
+
+- id: nf-patent-term
+  audience: public
+  lang: th
+  question: สิทธิบัตรการประดิษฐ์มีอายุคุ้มครองกี่ปี
+  expect_not_found: true
+  must_not_include: ["20 ปี", "ยี่สิบปี"]
+  source: no patent law in the knowledge base yet
+
+- id: nf-copyright-registration
+  audience: public
+  lang: th
+  question: งานลิขสิทธิ์ต้องไปจดทะเบียนก่อนไหมถึงจะได้รับความคุ้มครอง
+  expect_not_found: true
+  must_not_include: ["ไม่ต้องจดทะเบียน", "โดยอัตโนมัติ", "ทันทีที่สร้างสรรค์"]
+  source: no copyright law in the knowledge base yet
