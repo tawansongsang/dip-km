@@ -1,0 +1,26 @@
+[tools]
+python = "3.14"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+[tasks.setup]
+description = "Install pipeline dependencies into .venv"
+run = "pip install -r pipeline/requirements.txt"
+
+[tasks.extract]
+description = "Dump cleaned full text of a Krisdika PDF: mise run extract <pdf> <out.md>"
+run = "python pipeline/extract_krisdika.py"
+
+[tasks."build:tm-act"]
+description = "Build knowledge files for the Trademark Act B.E. 2534"
+run = """
+rm -rf knowledge/public/trademark/act-2534
+python pipeline/build_act.py raw/trademark/act_tm_th_2534.pdf \
+  knowledge/public/trademark/act-2534 \
+  --id tm-act-2534 --title-en "Trademark Act B.E. 2534 (1991)"
+"""
+
+[tasks.build]
+description = "Rebuild all generated knowledge files"
+depends = ["build:*"]
