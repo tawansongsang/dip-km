@@ -8,8 +8,11 @@ answer questions from DIP staff and the public.
 - `raw/` — original source documents
 - `pipeline/` — scripts that turn `raw/` into `knowledge/` (see `pipeline/README.md`)
 - `evals/` — test questions with known answers (see `evals/README.md`)
+- `templates/` — starting points for team folders, documents and skills
+- `CUSTOMIZE.md` — how staff add team or personal knowledge and skills
 - `AGENTS.md` — rules for agents (`CLAUDE.md` imports it)
-- `.agents/skills/dip-answer/` — answering workflow (linked from `.claude/skills/`)
+- `.agents/skills/` — skills, e.g. `dip-answer`; `.claude/skills/` is a copy kept
+  in sync with `mise run skills:sync` (copies, not symlinks, so Windows works)
 
 ## Setup
 

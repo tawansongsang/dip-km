@@ -2,3 +2,11 @@ tmp/
 .venv/
 __pycache__/
 evals/results/
+
+# Personal layer: each person's own knowledge, skills and settings.
+# Never committed. See CUSTOMIZE.md.
+knowledge/personal/
+.agents/skills/personal-*/
+.claude/skills/personal-*
+CLAUDE.local.md
+.claude/settings.local.json
