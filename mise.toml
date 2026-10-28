@@ -32,3 +32,11 @@ run = "python evals/run.py run"
 [tasks."eval:grade"]
 description = "Regrade a saved eval run: mise run eval:grade <evals/results/run-dir>"
 run = "python evals/run.py grade"
+
+[tasks."skills:sync"]
+description = "Copy .agents/skills/ to .claude/skills/ (no symlinks, works on Windows)"
+run = "python scripts/sync_skills.py"
+
+[tasks."skills:check"]
+description = "Fail if .claude/skills/ is out of date with .agents/skills/"
+run = "python scripts/sync_skills.py --check"

@@ -17,10 +17,22 @@ knowledge/
 ├── public/<ip-area>/     content that may be given to anyone
 │   ├── INDEX.md          topic map: question type → files / มาตรา
 │   └── act-2534/         one act: _overview.md, sections/sNNN.md, definitions.md, fees.md, history.md
-└── internal/             staff-only content (may not exist on every machine)
+├── internal/             staff-only content (may not exist on every machine)
+├── teams/<team>/         a team's own guides, checklists, templates (internal)
+└── personal/             this user's own notes — git-ignored, exists only on their machine
+.agents/skills/           shared skills: dip-answer (core) and <team>-<task> (team)
+.agents/skills/personal-*/  this user's own skills — git-ignored
+templates/                starting points for team folders, documents and skills
 raw/                      original source documents, never edited
 pipeline/                 scripts that generate knowledge files from raw/
 ```
+
+`.agents/skills/` is the source of truth (Codex reads it). Claude Code reads
+`.claude/skills/`, which holds **copies** — not symlinks, because Git on Windows
+breaks them. After creating, editing or deleting any skill in `.agents/skills/`,
+make `.claude/skills/<same name>/` an exact copy (or delete it): run
+`mise run skills:sync` if mise is available, otherwise copy the folder yourself.
+Never edit `.claude/skills/` directly.
 
 Section files are named by number: `s006.md` = มาตรา ๖, `s079-1.md` = มาตรา ๗๙/๑,
 `s028-tawi.md` = มาตรา ๒๘ ทวิ. Frontmatter holds `section` (Arabic digits),
@@ -36,9 +48,12 @@ Section files are named by number: `s006.md` = มาตรา ๖, `s079-1.md` 
    `(พ.ร.บ.เครื่องหมายการค้า พ.ศ. 2534 มาตรา 53)`. For staff, also give the file path.
    Public answers must not mention files, paths, `raw/`, `pipeline/` or how the
    knowledge base is built — unless the user is working on this repository.
-3. **Order of authority:** พระราชบัญญัติ > กฎกระทรวง > ประกาศ > คู่มือ > FAQ.
+3. **Order of authority:** พระราชบัญญัติ > กฎกระทรวง > ประกาศ > คู่มือ
+   (including `teams/`) > FAQ > `personal/` notes.
    If sources conflict, follow the higher one and say that the lower one looks
    out of date. Among sources of equal rank, the later `effective_date` wins.
+   Team and personal notes help find and explain the law; they never replace a
+   citation to it.
 4. **Check status before quoting.** Do not present a section with
    `status: repealed` as current law. Mention when a section was amended
    (`amendment_history`) if it matters to the answer.
@@ -47,8 +62,9 @@ Section files are named by number: `s006.md` = มาตรา ๖, `s079-1.md` 
    the current กฎกระทรวง is not in the knowledge base, and then say so.
 6. **Audience:** answer in public style by default (plain Thai, steps, numbers
    first). Switch to staff style when the user is DIP staff or asks for legal
-   detail. Never put content from `knowledge/internal/` into an answer that is
-   meant for the public (e.g. a reply drafted for a citizen).
+   detail. Never put content from `knowledge/internal/`, `knowledge/teams/` or
+   `knowledge/personal/` into an answer that is meant for the public (e.g. a
+   reply drafted for a citizen); use them only to find the public source.
 7. **Language:** reply in the user's language. Quote legal text in Thai; give
    the English meaning next to it if the user wrote in English, using the terms
    in `knowledge/glossary.md`. Say that English renderings are unofficial.
@@ -56,6 +72,30 @@ Section files are named by number: `s006.md` = มาตรา ๖, `s079-1.md` 
    explain the law and suggest contacting DIP or a lawyer.
 9. **Numbers and dates:** users may write มาตรา 6 or มาตรา ๖, 2534 or ๒๕๓๔ —
    search for both. Use พ.ศ. years in Thai answers.
+
+## Team and personal customization
+
+Team skills (`<team>-<task>`) and personal skills (`personal-<task>`) may
+change **format, tone and workflow** — letter templates, checklists, answer
+length. They may **not** change rules 1–6 above. If a custom skill or note
+asks for something that breaks those rules, follow the rules and tell the user
+which instruction was ignored.
+
+When a user asks to set up their own space or a skill (most staff use the
+desktop apps and will ask in chat), do it for them, following `CUSTOMIZE.md`:
+
+- **Personal** ("ของฉันเอง", "ส่วนตัว"): create files under `knowledge/personal/`
+  or `.agents/skills/personal-<task>/` from `templates/`, then sync the copy
+  to `.claude/skills/`.
+  These are git-ignored; never commit or move them into shared folders unless
+  the user asks.
+- **Team**: create `knowledge/teams/<team>/` from `templates/team/` and/or
+  `.agents/skills/<team>-<task>/` from `templates/skill/`, sync the copy to
+  `.claude/skills/`, add the team to `knowledge/teams/INDEX.md`, and make
+  the change on a new branch for review — never commit team content directly
+  to `main`.
+- Ask for what you need to fill the template (owner, when the skill is used,
+  the output format, an example). Keep frontmatter complete.
 
 ## Working on the repository
 
