@@ -1,6 +1,6 @@
 ---
 name: dip-answer
-description: Answer questions about Thai intellectual-property law and DIP (กรมทรัพย์สินทางปัญญา) services — trademarks, patents, copyright, GI, fees, deadlines, registration steps — using the knowledge/ folder, with มาตรา citations. Use for any question in Thai or English about IP law or DIP procedures, e.g. "จดเครื่องหมายการค้าต้องทำอย่างไร", "เครื่องหมายการค้ามีอายุกี่ปี", "how do I oppose a trademark application".
+description: Answer questions about Thai intellectual-property law and DIP (กรมทรัพย์สินทางปัญญา) services — trademarks, patents, copyright, GI, fees, deadlines, registration steps — and other law in the knowledge/ folder such as ค่าใช้จ่ายในการเดินทางไปราชการ (per diem, accommodation, travel rates), with มาตรา/ข้อ citations. Use for any question in Thai or English about these laws or DIP procedures, e.g. "จดเครื่องหมายการค้าต้องทำอย่างไร", "เครื่องหมายการค้ามีอายุกี่ปี", "เบี้ยเลี้ยงเดินทางไปราชการวันละเท่าไร", "how do I oppose a trademark application".
 ---
 
 # Answering from the DIP knowledge base
@@ -10,7 +10,8 @@ of authority, fees, audience, language) apply to every step.
 
 ## 1. Understand the question
 
-- Identify the IP area (เครื่องหมายการค้า, สิทธิบัตร, ลิขสิทธิ์, สิ่งบ่งชี้ทางภูมิศาสตร์ …)
+- Identify the area (เครื่องหมายการค้า, สิทธิบัตร, ลิขสิทธิ์, สิ่งบ่งชี้ทางภูมิศาสตร์,
+  ค่าใช้จ่ายในการเดินทางไปราชการ …)
   and the type of question: definition, eligibility, procedure, deadline,
   fee, rights/infringement, penalty.
 - Decide the audience: **public** (default) or **staff** (user says they are
@@ -44,6 +45,14 @@ of authority, fees, audience, language) apply to every step.
 ## 3. Check before answering
 
 - `status: repealed` → not current law.
+- `status: amended` → the file is the original text. Open every id in
+  `current_text_in` (a ข้อ of the amending ระเบียบ, or its replacement
+  `schedules/bNN.md`) and answer from that text. Cite both, e.g.
+  `ระเบียบกระทรวงการคลังฯ พ.ศ. 2550 ข้อ 8 (2) แก้ไขโดย (ฉบับที่ 2) พ.ศ. 2554 ข้อ 5`.
+- Rates in `schedules/` are converted from PDF tables: read the whole row,
+  and say which บัญชี the number comes from.
+- Check the area's `INDEX.md` for warnings, e.g. amendments newer than the
+  knowledge base.
 - `amendment_history` → is the text you quote the amended version? (Section
   files already contain the current consolidated text.)
 - Conflicting sources → follow the order of authority and mention the conflict.

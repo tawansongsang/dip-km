@@ -15,11 +15,16 @@ renderings are unofficial; the Thai text of the law is authoritative.
 | ไทย | English |
 |---|---|
 | พระราชบัญญัติ (พ.ร.บ.) | Act |
+| พระราชกฤษฎีกา (พ.ร.ฎ.) | Royal Decree |
 | กฎกระทรวง | Ministerial Regulation |
+| ระเบียบ (เช่น ระเบียบกระทรวงการคลัง) | Regulation (e.g. Ministry of Finance Regulation) |
 | ประกาศ | Notification |
 | ราชกิจจานุเบกษา | Royal Gazette |
 | ฉบับรวมแก้ไข | consolidated version |
 | มาตรา | section |
+| ข้อ (ในกฎกระทรวง ระเบียบ ประกาศ) | clause |
+| บัญชีท้าย / บัญชีหมายเลข | schedule / Schedule No. |
+| ลักษณะ | title (division above หมวด) |
 | วรรค | paragraph (วรรคหนึ่ง = paragraph one) |
 | อนุมาตรา (๑), (๒) | sub-section (1), (2) |
 | หมวด / ส่วน | chapter / part |
@@ -81,3 +86,19 @@ renderings are unofficial; the Thai text of the law is authoritative.
 | ค่าธรรมเนียม | fee |
 | ปลอม / เลียน เครื่องหมายการค้า | counterfeit / imitate a trademark |
 | ละเมิด | infringe / infringement |
+
+## ค่าใช้จ่ายในการเดินทางไปราชการ
+
+| ไทย | English |
+|---|---|
+| การเดินทางไปราชการชั่วคราว / ประจำ | temporary / permanent official travel |
+| เบี้ยเลี้ยงเดินทาง | travel per diem allowance |
+| ค่าเช่าที่พัก | accommodation expenses |
+| ค่าพาหนะ | transportation expenses |
+| ยานพาหนะประจำทาง | public scheduled transport |
+| พาหนะส่วนตัว / เงินชดเชย | private vehicle / compensation allowance |
+| ลักษณะเหมาจ่าย / จ่ายจริง | flat-rate / actual expenses |
+| ค่าเครื่องแต่งตัว | clothing allowance |
+| ค่าขนย้ายสิ่งของส่วนตัว | removal expenses for personal effects |
+| ภูมิลำเนาเดิม | original domicile |
+| หัวหน้าส่วนราชการ | head of government agency |
