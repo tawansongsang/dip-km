@@ -86,12 +86,12 @@ def normalize(text):
 
 SECTION_NUM = r"\d+(?:/\d+)?(?:\s*(?:ทวิ|ตรี|จัตวา|bis|ter))?"
 CITATION = re.compile(
-    rf"(?:มาตรา|ม\.|sections?|ss?\.|§)\s*({SECTION_NUM}"
+    rf"(?:มาตรา|ม\.|ข้อ|sections?|clauses?|ss?\.|§)\s*({SECTION_NUM}"
     rf"(?:\s*(?:,|และ|and|or|หรือ|–|-|—|ถึง|to)\s*{SECTION_NUM})*)", re.I)
 
 
 def cited_sections(answer):
-    """All มาตรา numbers the answer cites, ranges like 53–56 expanded."""
+    """All มาตรา / ข้อ numbers the answer cites, ranges like 53–56 expanded."""
     found = set()
     text = answer.translate(THAI_DIGITS)
     text = re.sub(r"s0*(\d+)(?:-(\d+))?\.md",

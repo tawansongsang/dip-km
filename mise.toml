@@ -12,6 +12,10 @@ run = "pip install -r pipeline/requirements.txt"
 description = "Dump cleaned full text of a Krisdika PDF: mise run extract <pdf> <out.md>"
 run = "python pipeline/extract_krisdika.py"
 
+[tasks."extract:pdf"]
+description = "Dump cleaned text of a Royal Gazette / Word-export PDF: mise run extract:pdf <pdf> <out.md>"
+run = "python pipeline/extract_pdf.py"
+
 [tasks."build:tm-act"]
 description = "Build knowledge files for the Trademark Act B.E. 2534"
 run = """
@@ -19,6 +23,27 @@ rm -rf knowledge/public/trademark/act-2534
 python pipeline/build_act.py raw/trademark/act_tm_th_2534.pdf \
   knowledge/public/trademark/act-2534 \
   --id tm-act-2534 --title-en "Trademark Act B.E. 2534 (1991)"
+"""
+
+[tasks."build:travel"]
+description = "Build the travel-expense decree and Ministry of Finance regulations"
+run = """
+rm -rf knowledge/public/travel-expenses/decree-2526 knowledge/public/travel-expenses/reg-2550 \
+  knowledge/public/travel-expenses/reg-2550-no2-2554
+python pipeline/build_doc.py raw/travel-expenses/decree_travel_2526_consolidated_no9_2560.pdf \
+  knowledge/public/travel-expenses/decree-2526 --id travel-decree-2526 --doc-type decree \
+  --title-en "Royal Decree on Travel Expenses for Official Duty B.E. 2526 (1983)" \
+  --effective-date 1983-04-01 \
+  --consolidated-by "ผู้จัดทำที่ไม่ระบุชื่อ (ไฟล์ Word) แก้ไขถึงฉบับที่ 9 พ.ศ. 2560"
+python pipeline/build_doc.py raw/travel-expenses/mof_reg_travel_2550.pdf \
+  knowledge/public/travel-expenses/reg-2550 --id travel-reg-2550 --doc-type regulation \
+  --title-en "Ministry of Finance Regulation on Reimbursement of Travel Expenses for Official Duty B.E. 2550 (2007)" \
+  --effective-date 2007-08-03
+python pipeline/build_doc.py raw/travel-expenses/mof_reg_travel_2550_no2_2554.pdf \
+  knowledge/public/travel-expenses/reg-2550-no2-2554 --id travel-reg-2550-no2-2554 \
+  --doc-type regulation --amends knowledge/public/travel-expenses/reg-2550 \
+  --title-en "Ministry of Finance Regulation on Reimbursement of Travel Expenses for Official Duty (No. 2) B.E. 2554 (2011)" \
+  --effective-date 2011-04-12
 """
 
 [tasks.build]

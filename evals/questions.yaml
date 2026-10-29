@@ -5,7 +5,7 @@
 #   audience           public | staff  (how the question is phrased)
 #   lang               th | en
 #   question           exactly what the user types
-#   expect_sections    มาตรา the answer must cite (Arabic digits, "79/4", "28 ทวิ")
+#   expect_sections    มาตรา / ข้อ the answer must cite (Arabic digits, "79/4", "28 ทวิ")
 #   must_include       list of facts; each fact is a list of accepted spellings,
 #                      any one is enough. Thai digits and thousands separators
 #                      are normalized before matching.
@@ -14,7 +14,9 @@
 #                      and the agent must say so instead of answering from memory
 #   source             file(s) holding the ground truth, for reviewers
 #
-# Ground truth: Trademark Act B.E. 2534 as amended to No. 3 (2559).
+# Ground truth: Trademark Act B.E. 2534 as amended to No. 3 (2559); travel
+# expenses: Royal Decree B.E. 2526 (to No. 9, 2560) and MOF Regulation
+# B.E. 2550 as amended by No. 2 (2554).
 
 # --- what can be registered ------------------------------------------------
 
@@ -252,6 +254,50 @@
     - ["10 years", "ten years"]
     - ["3 months", "three months"]
   source: act-2534/sections/s053.md, s054.md
+
+# --- travel expenses (non-IP law used by staff) -----------------------------
+
+- id: travel-per-diem-domestic
+  audience: staff
+  lang: th
+  question: ข้าราชการชำนาญการพิเศษไปราชการต่างจังหวัด เบิกเบี้ยเลี้ยงเหมาจ่ายได้วันละเท่าไร
+  expect_sections: ["8"]
+  must_include:
+    - ["240"]
+    - ["บัญชีหมายเลข 2", "บัญชี 2"]
+    - ["ฉบับที่ 2"]
+  must_not_include: ["270 บาท"]
+  source: travel-expenses/reg-2550-no2-2554/schedules/b02.md, reg-2550/sections/s008.md
+
+- id: travel-hotel-actual
+  audience: staff
+  lang: th
+  question: ระดับชำนาญการพิเศษ เบิกค่าเช่าที่พักแบบจ่ายจริงห้องพักคนเดียวได้ไม่เกินคืนละเท่าไร
+  must_include:
+    - ["1,500", "1500"]
+    - ["บัญชีหมายเลข 3", "บัญชี 3"]
+  source: travel-expenses/reg-2550-no2-2554/schedules/b03.md
+
+- id: travel-train-amended
+  audience: staff
+  lang: th
+  question: ใครเบิกค่ารถไฟชั้นที่ 1 นั่งนอนปรับอากาศได้บ้าง
+  expect_sections: ["9", "6"]
+  must_include:
+    - ["ชำนาญงาน"]
+    - ["ชำนาญการ"]
+    - ["ฉบับที่ 2"]
+  source: travel-expenses/reg-2550-no2-2554/sections/s006.md (amends reg-2550 ข้อ 9 วรรคสาม)
+
+- id: travel-private-car
+  audience: public
+  lang: th
+  question: ใช้รถยนต์ส่วนตัวไปราชการ เบิกค่าน้ำมันได้ไหม คิดระยะทางอย่างไร
+  expect_sections: ["11"]
+  must_include:
+    - ["เหมาจ่าย"]
+    - ["กรมทางหลวง"]
+  source: travel-expenses/reg-2550/sections/s011.md, decree-2526/sections/s025.md
 
 # --- not in the knowledge base: must say so, not answer from memory --------
 
