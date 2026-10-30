@@ -2,8 +2,11 @@
 plus overview, definitions, fee schedule and amendment history.
 
 Usage:
-    python pipeline/build_act.py SRC_PDF OUT_DIR --id tm-act-2534 \
-        --title-en "Trademark Act B.E. 2534 (1991)" [--audience public]
+    python pipeline/build_act.py SRC OUT_DIR --id tm-act-2534 \
+        --title-en "Trademark Act B.E. 2534 (1991)" [--audience public] \
+        [--consolidated-by "กรมทรัพย์สินทางปัญญา"]
+
+SRC is a Krisdika PDF or a consolidated act in Word (.docx, see extract_docx).
 
 Body text is kept verbatim (Thai digits included). Frontmatter uses Arabic
 digits so that "มาตรา 6" and "มาตรา ๖" both find the file.
@@ -15,7 +18,9 @@ import os
 import re
 from collections import OrderedDict
 
-from extract_krisdika import THAI_DIGITS, extract
+import extract_docx
+import extract_krisdika
+from extract_krisdika import THAI_DIGITS
 
 THAI_NUM = "[๐-๙]+"
 SUFFIXES = {"ทวิ": "tawi", "ตรี": "tri", "จัตวา": "chattawa", "เบญจ": "benja",
@@ -28,11 +33,14 @@ TRANSITIONAL = "บทเฉพาะกาล"
 SIGNATURE = "ผู้รับสนองพระบรมราชโองการ"
 FEES = re.compile(r"^อัตราค่าธรรมเนียม")
 NOTE = re.compile(r"^หมายเหตุ")
-AMENDING_ACT = re.compile(r"^พระราชบัญญัติ.+\(ฉบับที่ [๐-๙]+\) พ\.ศ\. ?[๐-๙]{4}")
+# an amending act is "พระราชบัญญัติ…(ฉบับที่ n) พ.ศ. …" or another act that
+# amends several laws, e.g. "พระราชบัญญัติแก้ไขเพิ่มเติมบทบัญญัติ… พ.ศ. ๒๕๖๐"
+ACT_NAME = r"พระราชบัญญัติ(?:.+?\(ฉบับที่ [๐-๙]+\)|แก้ไขเพิ่มเติม.+?) พ\.ศ\. ?[๐-๙]{4}"
+AMENDING_ACT = re.compile(rf"^{ACT_NAME}")
 FOOTREF = re.compile(r"\[\^(\d+)\]")
 AMENDMENT = re.compile(
     r"^(?P<target>.*?)\s*(?P<action>แก้ไขเพิ่มเติม|เพิ่ม|ยกเลิก)โดย"
-    r"(?P<by>พระราชบัญญัติ.+?\(ฉบับที่ [๐-๙]+\) พ\.ศ\. ?[๐-๙]{4})")
+    rf"(?P<by>{ACT_NAME})")
 
 
 def arabic(s):
@@ -89,6 +97,11 @@ def amendments(paragraphs, notes):
     return out
 
 
+def is_heading(t):
+    return bool(SECTION.match(t) or CHAPTER.match(t) or PART.match(t)
+                or t in (TRANSITIONAL, SIGNATURE))
+
+
 def parse(paragraphs):
     """Split the paragraph stream into the parts of a consolidated act."""
     doc = {"preamble": [], "sections": [], "signature": [], "fees": [],
@@ -100,11 +113,15 @@ def parse(paragraphs):
         t, page = texts[i], paragraphs[i]["page"]
         if zone in ("preamble", "body"):
             if CHAPTER.match(t):
-                chapter = f"{FOOTREF.sub('', t)} {texts[i + 1]}"
+                # a long chapter title can run over several paragraphs
+                j = i + 2
+                while j < len(texts) and not is_heading(texts[j]):
+                    j += 1
+                chapter = " ".join([FOOTREF.sub('', t)] + texts[i + 1:j])
                 doc["chapters"].append({"title": chapter, "heading": t, "parts": [],
                                         "sections": []})
                 part = None
-                i += 2
+                i = j
                 continue
             if PART.match(t):
                 part = f"{FOOTREF.sub('', t)} {texts[i + 1]}"
@@ -121,7 +138,9 @@ def parse(paragraphs):
             m = SECTION.match(t)
             if m:
                 zone = "body"
-                sec = {"num_th": m[1], "chapter": chapter, "part": part,
+                sec = {"num_th": m[1],
+                       "chapter": chapter and FOOTREF.sub("", chapter),
+                       "part": part and FOOTREF.sub("", part),
                        "paragraphs": [t], "pages": [page]}
                 doc["sections"].append(sec)
                 if doc["chapters"]:
@@ -142,6 +161,9 @@ def parse(paragraphs):
             if FEES.match(t):
                 zone = "fees"
                 doc["fees"].append(t)
+            elif NOTE.match(t):  # act without a fee schedule
+                zone = "history"
+                doc["history"].append(t)
             else:
                 doc["signature"].append(t)
         elif zone == "fees":
@@ -197,15 +219,16 @@ def write(path, text):
         f.write(text)
 
 
-def build(src, out, law_id, title_en, audience):
-    paragraphs, notes = extract(src)
+def build(src, out, law_id, title_en, audience, consolidated_by):
+    reader = extract_docx if src.lower().endswith(".docx") else extract_krisdika
+    paragraphs, notes = reader.extract(src)
     doc = parse(paragraphs)
     title_th = re.search(r"“(.+?)”", doc["sections"][0]["paragraphs"][0])[1]
     title_th = re.sub(r"พ\.ศ\.\s*", "พ.ศ. ", title_th)
     source = os.path.relpath(src)
     base = {"law_id": law_id, "law": arabic(title_th), "law_th": title_th,
             "law_en": title_en, "audience": audience, "language": "th",
-            "source": source, "consolidated_by": "สำนักงานคณะกรรมการกฤษฎีกา"}
+            "source": source, "consolidated_by": consolidated_by}
 
     slugs = {s["num_th"]: section_slug(s["num_th"]) for s in doc["sections"]}
     ref_pattern = re.compile(rf"มาตรา ({THAI_NUM}(?:/{THAI_NUM})?(?: (?:{'|'.join(SUFFIXES)}))?)")
@@ -314,13 +337,14 @@ def write_overview(out, doc, notes, base, law_id, slugs):
         elif t.startswith("โดยที่"):
             md += f"- คำปรารภ: {t}\n"
     md += f"- ประกาศในราชกิจจานุเบกษา: {notes.get('1', '-')}\n"
-    md += "- ฉบับนี้เป็นฉบับรวมแก้ไข (consolidated) จัดทำโดยสำนักงานคณะกรรมการกฤษฎีกา " \
+    md += f"- ฉบับนี้เป็นฉบับรวมแก้ไข (consolidated) จัดทำโดย{base['consolidated_by']} " \
           "ไม่ใช่ฉบับทางราชการ หากต้องอ้างอิงทางกฎหมายให้ตรวจกับราชกิจจานุเบกษา\n\n"
     md += "## กฎหมายที่แก้ไขเพิ่มเติม\n\n"
     md += "".join(f"- {a}\n" for a in amending) or "- ไม่มี\n"
     md += "\nรายละเอียดและเหตุผลการตรา: [history.md](history.md)\n\n"
     md += "## โครงสร้างและสารบัญมาตรา\n\n"
-    md += "ไฟล์อื่น: [บทนิยาม](definitions.md) · [อัตราค่าธรรมเนียม](fees.md) · " \
+    md += "ไฟล์อื่น: [บทนิยาม](definitions.md) · " + \
+          ("[อัตราค่าธรรมเนียม](fees.md) · " if doc["fees"] else "") + \
           "[ประวัติ](history.md)\n\n"
 
     def links(sections):
@@ -338,7 +362,9 @@ def write_overview(out, doc, notes, base, law_id, slugs):
         if loose:
             md += f"มาตรา {links(loose)}\n\n"
         for p in c["parts"]:
-            md += f"- **{p['title']}** — มาตรา {links(p['sections'])}\n"
+            md += f"- **{FOOTREF.sub('', p['title'])}** — มาตรา {links(p['sections'])}\n"
+            for n in FOOTREF.findall(p["title"]):
+                md += f"  > {notes.get(n, '')}\n"
         if c["parts"]:
             md += "\n"
     repealed = []
@@ -356,5 +382,6 @@ if __name__ == "__main__":
     ap.add_argument("--id", required=True)
     ap.add_argument("--title-en", required=True)
     ap.add_argument("--audience", default="public")
+    ap.add_argument("--consolidated-by", default="สำนักงานคณะกรรมการกฤษฎีกา")
     a = ap.parse_args()
-    build(a.src, a.out, a.id, a.title_en, a.audience)
+    build(a.src, a.out, a.id, a.title_en, a.audience, a.consolidated_by)

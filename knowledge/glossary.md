@@ -2,7 +2,7 @@
 id: glossary
 type: glossary
 audience: public
-last_reviewed: 2026-10-28
+last_reviewed: 2026-10-30
 ---
 
 # อภิธานศัพท์ TH ↔ EN (Glossary)
@@ -86,6 +86,31 @@ renderings are unofficial; the Thai text of the law is authoritative.
 | ค่าธรรมเนียม | fee |
 | ปลอม / เลียน เครื่องหมายการค้า | counterfeit / imitate a trademark |
 | ละเมิด | infringe / infringement |
+
+## ลิขสิทธิ์
+
+| ไทย | English |
+|---|---|
+| ลิขสิทธิ์ / เจ้าของลิขสิทธิ์ | copyright / copyright owner |
+| งานอันมีลิขสิทธิ์ | copyright work |
+| ผู้สร้างสรรค์ / ผู้สร้างสรรค์ร่วม | author / joint authors |
+| วรรณกรรม / นาฏกรรม / ศิลปกรรม / ดนตรีกรรม | literary / dramatic / artistic / musical work |
+| โปรแกรมคอมพิวเตอร์ | computer program |
+| โสตทัศนวัสดุ / ภาพยนตร์ / สิ่งบันทึกเสียง | audiovisual work / cinematographic work / sound recording |
+| งานแพร่เสียงแพร่ภาพ | broadcasting work |
+| งานศิลปประยุกต์ | work of applied art |
+| ทำซ้ำ / ดัดแปลง | reproduce / adapt |
+| เผยแพร่ต่อสาธารณชน / การโฆษณา (งาน) | communicate to the public / publication (of a work) |
+| สิทธิแต่ผู้เดียว | exclusive right |
+| อายุแห่งการคุ้มครองลิขสิทธิ์ | term of copyright protection |
+| ข้อยกเว้นการละเมิดลิขสิทธิ์ | exceptions to copyright infringement |
+| นักแสดง / สิทธิของนักแสดง | performer / performer's rights |
+| ผู้ให้บริการ / ผู้ใช้บริการ | service provider / service user |
+| ข้อมูลการบริหารสิทธิ | rights management information (RMI) |
+| มาตรการทางเทคโนโลยี | technological protection measures (TPM) |
+| คณะกรรมการลิขสิทธิ์ | Copyright Board |
+| ความผิดอันยอมความได้ | compoundable offence |
+| เปรียบเทียบ (ความผิด) | settle by fine (administrative settlement of an offence) |
 
 ## ค่าใช้จ่ายในการเดินทางไปราชการ
 

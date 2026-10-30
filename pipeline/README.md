@@ -21,7 +21,12 @@ mise run build:tm-act       # rebuild only the Trademark Act
 ```
 
 To add an act, add a `build:<name>` task to `mise.toml` that calls
-`pipeline/build_act.py SRC_PDF OUT_DIR --id <id> --title-en "<English title>"`.
+`pipeline/build_act.py SRC OUT_DIR --id <id> --title-en "<English title>"`.
+
+SRC may also be a consolidated act in Word (`.docx`) with the amendment notes
+as real Word footnotes; `extract_docx.py` reads it into the same paragraphs and
+footnotes as a Krisdika PDF. Pass `--consolidated-by "<who>"` when the
+consolidation is not Krisdika's (example: `build:copyright`, made by DIP).
 
 Output:
 

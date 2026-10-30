@@ -2,7 +2,7 @@
 id: index
 type: index
 audience: public
-last_reviewed: 2026-10-28
+last_reviewed: 2026-10-30
 ---
 
 # ฐานความรู้กรมทรัพย์สินทางปัญญา (DIP Knowledge Base)
@@ -11,7 +11,7 @@ last_reviewed: 2026-10-28
 |---|---|---|
 | เครื่องหมายการค้า (Trademarks) | มี พ.ร.บ. | [public/trademark/INDEX.md](public/trademark/INDEX.md) |
 | สิทธิบัตร (Patents) | ยังไม่มีข้อมูล | — |
-| ลิขสิทธิ์ (Copyright) | ยังไม่มีข้อมูล | — |
+| ลิขสิทธิ์ (Copyright) | มี พ.ร.บ. | [public/copyright/INDEX.md](public/copyright/INDEX.md) |
 | สิ่งบ่งชี้ทางภูมิศาสตร์ (GI) | ยังไม่มีข้อมูล | — |
 
 กฎหมายบริหารงานราชการที่เจ้าหน้าที่ใช้ (ไม่ใช่กฎหมายทรัพย์สินทางปัญญา)

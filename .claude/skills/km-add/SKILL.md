@@ -30,7 +30,8 @@ mise run extract "tmp/<file>.pdf" <scratchpad>/<n>.md         # Krisdika consoli
 
 A Krisdika consolidated act has "สำนักงานคณะกรรมการกฤษฎีกา" in the page
 header and numbered footnotes. Everything else uses `extract:pdf`. For DOCX,
-read the text with `unzip -p file.docx word/document.xml | sed -e 's/<\/w:p>/\n/g; s/<[^>]*>//g'`,
+dump it with `mise exec -- python pipeline/extract_docx.py "tmp/<file>.docx" <scratchpad>/<n>.md`
+(keeps Word footnotes as `[^n]`),
 or ask for a PDF export if the layout matters (tables, schedules).
 
 Work out, from the text:
@@ -67,6 +68,8 @@ Add a `build:<area>` task to `mise.toml` (or extend the area's task) and run
 it. Copy the pattern of `build:tm-act` / `build:travel`:
 
 - Krisdika consolidated act → `pipeline/build_act.py SRC OUT --id … --title-en …`
+  - the same for a consolidated พ.ร.บ. in Word (`.docx`, footnotes "มาตรา … แก้ไขเพิ่มเติมโดย…"),
+    with `--consolidated-by "…"` when it was not made by Krisdika (see `build:copyright`)
 - Any other law → `pipeline/build_doc.py SRC OUT --id … --doc-type decree|ministerial-regulation|regulation|notification --title-en … --effective-date YYYY-MM-DD`
   - consolidated by someone other than Krisdika → `--consolidated-by "…"`
   - an amending document → `--amends <base OUT>`; build it **after** the base

@@ -16,7 +16,8 @@
 #
 # Ground truth: Trademark Act B.E. 2534 as amended to No. 3 (2559); travel
 # expenses: Royal Decree B.E. 2526 (to No. 9, 2560) and MOF Regulation
-# B.E. 2550 as amended by No. 2 (2554).
+# B.E. 2550 as amended by No. 2 (2554); Copyright Act B.E. 2537 as amended
+# to No. 5 (2565), consolidated by DIP.
 
 # --- what can be registered ------------------------------------------------
 
@@ -255,6 +256,51 @@
     - ["3 months", "three months"]
   source: act-2534/sections/s053.md, s054.md
 
+# --- copyright ---------------------------------------------------------------
+
+- id: cr-registration
+  audience: public
+  lang: th
+  # The act has no registration procedure: copyright vests in the author under
+  # มาตรา 8. DIP's voluntary แจ้งข้อมูลลิขสิทธิ์ service is not in the knowledge base.
+  question: งานลิขสิทธิ์ต้องไปจดทะเบียนก่อนไหมถึงจะได้รับความคุ้มครอง
+  expect_sections: ["8"]
+  must_include:
+    - ["ผู้สร้างสรรค์"]
+  source: copyright/act-2537/sections/s008.md
+
+- id: cr-term-general
+  audience: public
+  lang: th
+  question: ลิขสิทธิ์งานเขียนหนังสือคุ้มครองนานแค่ไหน
+  expect_sections: ["19"]
+  must_include:
+    - ["ตลอดอายุ"]
+    - ["50 ปี", "ห้าสิบปี"]
+  source: copyright/act-2537/sections/s019.md
+
+- id: cr-fair-use-teaching
+  audience: staff
+  lang: th
+  question: ครูถ่ายเอกสารบางส่วนของหนังสือแจกนักเรียนในชั้น ผิดลิขสิทธิ์ไหม ขอมาตราด้วย
+  expect_sections: ["32"]
+  must_include:
+    - ["ไม่เป็นการละเมิด", "มิให้ถือว่าเป็นการละเมิด"]
+    - ["หากำไร"]
+  source: copyright/act-2537/sections/s032.md
+
+- id: cr-penalty-commercial
+  audience: public
+  lang: th
+  question: ร้านค้ารู้อยู่ว่าแผ่นหนังเป็นของละเมิดลิขสิทธิ์แต่ยังเอามาขายเพื่อการค้า มีโทษอะไร
+  expect_sections: ["31", "70"]
+  must_include:
+    - ["สามเดือน", "3 เดือน"]
+    - ["สองปี", "2 ปี"]
+    - ["400,000", "สี่แสน"]
+  must_not_include: ["800,000", "แปดแสน"]
+  source: copyright/act-2537/sections/s031.md, s070.md
+
 # --- travel expenses (non-IP law used by staff) -----------------------------
 
 - id: travel-per-diem-domestic
@@ -309,10 +355,3 @@
   must_not_include: ["20 ปี", "ยี่สิบปี"]
   source: no patent law in the knowledge base yet
 
-- id: nf-copyright-registration
-  audience: public
-  lang: th
-  question: งานลิขสิทธิ์ต้องไปจดทะเบียนก่อนไหมถึงจะได้รับความคุ้มครอง
-  expect_not_found: true
-  must_not_include: ["ไม่ต้องจดทะเบียน", "โดยอัตโนมัติ", "ทันทีที่สร้างสรรค์"]
-  source: no copyright law in the knowledge base yet

@@ -25,6 +25,16 @@ python pipeline/build_act.py raw/trademark/act_tm_th_2534.pdf \
   --id tm-act-2534 --title-en "Trademark Act B.E. 2534 (1991)"
 """
 
+[tasks."build:copyright"]
+description = "Build knowledge files for the Copyright Act B.E. 2537"
+run = """
+rm -rf knowledge/public/copyright/act-2537
+python pipeline/build_act.py raw/copyright/act_cr_th_2537.docx \
+  knowledge/public/copyright/act-2537 \
+  --id cr-act-2537 --title-en "Copyright Act B.E. 2537 (1994)" \
+  --consolidated-by "กรมทรัพย์สินทางปัญญา"
+"""
+
 [tasks."build:travel"]
 description = "Build the travel-expense decree and Ministry of Finance regulations"
 run = """
